@@ -52,7 +52,7 @@ set_x_ticklabels_function(ax)
 ax.yaxis.set_major_formatter(mpl.ticker.StrMethodFormatter("{x:,.0f}"))
 plt.tight_layout()
 plt.show()
-fig.savefig("electricity demand.pdf", dpi=1000)
+fig.savefig("observation_electricity demand.pdf", dpi=1000)
 
 #
 #
@@ -77,7 +77,7 @@ ax.set_ylim([0, max(price) * 1.15])
 ax.set_xlim([-1, max(timesteps) + 1])
 plt.tight_layout()
 plt.show()
-fig.savefig("electricity selling price.pdf", dpi=1000)
+fig.savefig("observation_electricity selling price.pdf", dpi=1000)
 
 #
 #
@@ -102,7 +102,7 @@ set_x_ticklabels_function(ax)
 ax.set_xlim([-1, max(timesteps) + 1])
 plt.tight_layout()
 plt.show()
-fig.savefig("LN electricity selling price.pdf", dpi=1000)
+fig.savefig("LN_electricity selling price.pdf", dpi=1000)
 
 # LN(Price)
 fig, ax = plt.subplots()
@@ -121,7 +121,7 @@ set_x_ticklabels_function(ax)
 ax.set_xlim([-1, max(timesteps) + 1])
 plt.tight_layout()
 plt.show()
-fig.savefig("LN electricity demand.pdf", dpi=1000)
+fig.savefig("LN_electricity demand.pdf", dpi=1000)
 
 # ACF(Demand)
 fig, _ax = plt.subplots()
@@ -145,7 +145,7 @@ _ax.set_title("")
 plt.tight_layout()
 
 plt.show()
-fig.savefig("ACF electricity demand.pdf", dpi=1000)
+fig.savefig("ACF_electricity demand.pdf", dpi=1000)
 
 
 # ACF(Price)
@@ -167,4 +167,87 @@ for item in _ax.collections:
 _ax.set_title("")
 plt.tight_layout()
 plt.show()
-fig.savefig("ACF electricity price.pdf", dpi=1000)
+fig.savefig("ACF_electricity price.pdf", dpi=1000)
+
+iteration = [
+    ["Governmental Pricing [$/kWh]", "governmental pricing"],
+    ["Average hours of sun", "average sun hours"],
+    ["Average temperature (high) [°C]", "average temperature (high)"],
+    ["Average temperature (low) [°C]", "average temperature (low)"],
+    ["Availability of the public grid [hours]", "public grid availability"],
+    ["Rooftop solar PV systems [kW]", "rooftop pv"],
+    ["Solar farms [kW]", "farm pv"]
+    ]
+
+for _item, _name in iteration:
+    _observation = data[_item]
+    
+    fig, ax = plt.subplots()
+    ax.plot(
+        timesteps,
+        _observation,
+        linewidth=2,
+        marker="o",
+        markeredgecolor="None",
+        color="black"
+    )
+    ax.set_xlabel("Time", fontsize=12)
+    ax.set_ylabel(_item, fontsize=12)
+    ax.set_ylim([0, max(_observation) * 1.15])
+    ax.set_xlim([-1, max(timesteps) + 1])
+
+    set_x_ticklabels_function(ax)
+
+    ax.yaxis.set_major_formatter(mpl.ticker.StrMethodFormatter("{x:,.0f}"))
+    plt.tight_layout()
+    plt.show()
+    fig.savefig("observation_"+_name+".pdf", dpi=1000)
+    
+    # LN(Price)
+    fig, ax = plt.subplots()
+    observation_ln = np.log(_observation)
+    ax.plot(
+        timesteps,
+        observation_ln,
+        linewidth=2,
+        marker="o",
+        markeredgecolor="None",
+        color='black',
+    )
+    ax.set_ylabel("ln("+_item+")", fontsize=12)
+    ax.set_xlabel("Time", fontsize=12)
+    set_x_ticklabels_function(ax)
+    ax.set_xlim([-1, max(timesteps) + 1])
+    plt.tight_layout()
+    plt.show()
+    fig.savefig("LN_"+_name+".pdf", dpi=1000)
+    
+    fig, _ax = plt.subplots()
+    plot_acf(
+        ax=_ax,
+        x=_observation,
+        color='black',
+        vlines_kwargs={"colors": "black"},
+        mec="gray",
+    )
+    _ax.set_ylim([-1.1, 1.1])
+
+    for item in _ax.collections:
+        if type(item) == PolyCollection:
+            item.set_facecolor("#6C946F")
+            item.set_edgecolor("none")
+            item.set_linewidth(1.5)
+    _ax.set_title("")
+    plt.tight_layout()
+    plt.show()
+    fig.savefig("ACF_"+_name+".pdf", dpi=1000)
+    
+
+
+
+
+
+
+
+
+
