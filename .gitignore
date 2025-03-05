@@ -144,4 +144,6 @@ dmypy.json
 
 # exclude reference folder
 proposal/*
+data/*
+workflow/*
 
