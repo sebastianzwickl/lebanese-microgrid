@@ -1,9 +1,0 @@
-t..time step ==> month 
-
-Unlagged / Lagged Model: Unterscheiden sich darin, ob in der Regression Gleichung auch Daten bezüglich eines anderen Zeitschritts vorkommen (i.e., t-1)
-
-have you checked the three main assumptions for applying an OLS?- heterskedasticity- return to mean (stationarity)- no correlation among variables--> check correlates and also check for lag structure ==> NO, How?
-
-per year? Is there correlation between S and HDD ==> How to test, I Guess yes…
-
-adding both (HDD and CDD), ist that useful? how are HDD and CDD defined in Lebanon?
