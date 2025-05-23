@@ -143,7 +143,5 @@ dmypy.json
 *.blg
 
 # exclude reference folder
-proposal/*
-data/*
 workflow/*
 
