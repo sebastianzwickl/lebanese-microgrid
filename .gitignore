@@ -144,4 +144,5 @@ dmypy.json
 
 # exclude reference folder
 workflow/*
+data/*
 
