@@ -3,6 +3,7 @@ import numpy as np
 import pandas as pd
 import matplotlib.ticker as ticker
 import scienceplots
+from matplotlib.patches import Circle
 
 _color_line1 = "#DF6D2D"
 _color_line2 = "#4B5945"
@@ -74,5 +75,33 @@ _legend = ax.legend(
     markerscale=2
 )
 
+ax.text(x=10, y=-1., s=r"a", va='center', ha='center', fontsize=12, color='black')
+circle = Circle((10, -1.), radius=2.75, edgecolor='black', facecolor='none', linewidth=0.75)
+ax.add_patch(circle)
+
+ax.text(x=80, y=-35.5, s='b', va='center', ha='center', fontsize=12)
+circle = Circle((80, -35.5), radius=2.75, edgecolor='black', facecolor='none', linewidth=0.75)
+ax.add_patch(circle)
+
+ax.text(x=205, y=-37.5, s='c', va='center', ha='center', fontsize=12)
+circle = Circle((205, -37.5), radius=2.75, edgecolor='black', facecolor='none', linewidth=0.75)
+ax.add_patch(circle)
+
+ax.text(x=205, y=-1, s='d', va='center', ha='center', fontsize=12)
+circle = Circle((205, -1), radius=2.75, edgecolor='black', facecolor='none', linewidth=0.75)
+ax.add_patch(circle)
+
 plt.tight_layout()
+ax.set_xlim([-10, 210])
+ax.set_ylim([-42, 2])
+
+_col = '#A53860'
+ax.plot(54, -25.92, marker = '*', ms = 10, color=_col)
+ax.plot(14.08, -25.92, marker = '*', ms = 10, color=_col)
+
+ax.text(x=14.08+(54-14.08)/2, y=-25.92, s='e', va='center', ha='center', fontsize=12, color=_col)
+_x=14.08+(54-14.08)/2
+circle = Circle((_x, -25.92), radius=2.75, edgecolor=_col, facecolor='none', linewidth=0.75)
+ax.add_patch(circle)
+
 fig.savefig("result/" + _time + "/RESULTS_scatterplot.pdf", dpi=1000)
